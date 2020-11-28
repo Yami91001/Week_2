@@ -1,0 +1,10 @@
+Sortings: 0= Selection Sort, 1= Insertion Sort, 2= Bubble Sort, 3= Merge Sort, 4= Quick Sort 
+Sortings 	 Data Order 	 Data Size 	 Duration 
+4 	         0 	             0 	 	 	 1 
+4 	         0 	             1 	 	 	 6 
+4 	         0 	             2 	 	 	 19 
+4 	         0 	             3 	 	 	 76 
+4 	         0 	             4 	 	 	 240 
+4 	         1 	             0 	 	 	 21 
+4 	         1 	             1 	 	 	 965 
+4 	         1 	             2 	 	 	 1002 
