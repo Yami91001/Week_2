@@ -6,28 +6,28 @@
 using namespace std;
 
 
-
-
-void inputArray(int*& a, int& n);
-
-void inputArray(int*& a, int& n);
-
-void printArray(int* a, int n);
-
 int findMin(int* a, int n, int i);
 
-void selectionSort(int*& a, int n);
+void selectionSort(int* a, int n);
 
-void insertionSort(int*& a, int n);
+void insertionSort(int* a, int n);
 
-void bubbleSort(int*& a, int n);
+void bubbleSort(int* a, int n);
 
 void merge(int* a, int l, int r, int m);
 
 void mergeSort(int* a, int l, int r);
 
-int partition(int arr[], int low, int high);
+int partition(int* a, int l, int r);
 
-void quickSort(int arr[], int low, int high);
+void quickSortIterative(int* a, int l, int r);
 
-void quickSortIterative(int arr[], int l, int h);
+void heapify(int* a, int n, int i);
+
+void heapSort(int* a, int n);
+
+int recursiveBinarySearch(int* a, int left, int right, int key);
+
+void binInsertion(int* a, int n);
+
+

@@ -1,5 +1,0 @@
-﻿  Sortings.cpp
-  Source.cpp
-D:\19120257\Project1\Project1\Source.cpp(3): warning C4326: return type of 'main' should be 'int' instead of 'void'
-  Generating Code...
-  Project1.vcxproj -> D:\19120257\Project1\Debug\Project1.exe

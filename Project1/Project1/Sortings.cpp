@@ -1,25 +1,5 @@
 #include "Sortings.h"
 
-void inputArray(int*& a, int& n)
-{
-	cout << "Nhap vao so phan tu cua mang: ";
-	cin >> n;
-	a = new int[n];
-	for (int i = 0; i < n; i++)
-	{
-		cout << "A[" << i << "]= ";
-		cin >> a[i];
-	}
-}
-
-void printArray(int* a, int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout << "A[" << i << "]= " << a[i] << endl;
-	}
-}
-
 int findMin(int* a, int n, int i) {
 	int min = a[i], index = i;
 	for (int j = i + 1; j < n; j++)
@@ -32,7 +12,7 @@ int findMin(int* a, int n, int i) {
 	return index;
 }
 
-void selectionSort(int*& a, int n) {
+void selectionSort(int* a, int n) {
 	int idx = 0;
 	for (int i = 0; i < n; i++)
 	{
@@ -41,7 +21,7 @@ void selectionSort(int*& a, int n) {
 	}
 }
 
-void insertionSort(int*& a, int n)
+void insertionSort(int* a, int n)
 {
 	int temp = 0, j = 0;
 	for (int i = 1; i < n; i++)
@@ -57,19 +37,26 @@ void insertionSort(int*& a, int n)
 	}
 }
 
-void bubbleSort(int*& a, int n)
+void bubbleSort(int* a, int n)
 {
+	
 	for (int i = 0; i < n - 1; i++)
 	{
+		bool swapped = 0;
 		for (int j = 0; j < n - i - 1; j++)
 		{
 			if (a[j + 1] < a[j])
+			{
 				swap(a[j], a[j + 1]);
+				swapped = 1;
+			}
 		}
+		if (swapped == 0)
+			break;
 	}
 }
 
-void merge(int* a, int l, int r, int m)	
+void merge(int* a, int l, int r, int m)
 {
 	int* L, * R;
 	int n1 = m - l + 1;
@@ -120,68 +107,97 @@ void mergeSort(int* a, int l, int r)
 	merge(a, l, r, m);
 }
 
-int partition(int arr[], int l, int r)
+int partition(int* a, int l, int r)
 {
-	int pivot = arr[r];
-	int i = (l - 1);
-
-	for (int j = l; j <= r - 1; j++)
+	int pivot = a[l], i = l + 1, temp;
+	for (int j = l+1; j <= r; j++)
 	{
-		if (arr[j] < pivot)
+		if (a[j] < pivot)
 		{
+			swap(a[i], a[j]);
 			i++;
-			swap(arr[i], arr[j]);
 		}
 	}
-	swap(arr[i + 1], arr[r]);
-	return (i + 1);
+	swap(a[l], a[i - 1]);
+	return i-1;
 }
 
-void quickSort(int arr[], int l, int r)
-{
-	if (l >= r)
-		return;
-	int pi = partition(arr, l, r);
-	quickSort(arr, l, pi - 1);
-	quickSort(arr, pi + 1, r);
-}
 
-void quickSortIterative(int arr[], int l, int h)
+void quickSortIterative(int* a, int l, int r)
 {
-	// Create an auxiliary stack 
-	int k = h - l + 1;
-	double *stack=new double[k];
-
-	// initialize top of stack 
+	int k = r - l + 1;
+	int* stack = new int[k];
 	int top = -1;
-
-	// push initial values of l and h to stack 
 	stack[++top] = l;
-	stack[++top] = h;
-
-	// Keep popping from stack while is not empty 
+	stack[++top] = r;
 	while (top >= 0) {
-		// Pop h and l 
-		h = stack[top--];
+		r = stack[top--];
 		l = stack[top--];
-
-		// Set pivot element at its correct position 
-		// in sorted array 
-		int p = partition(arr, l, h);
-
-		// If there are elements on left side of pivot, 
-		// then push left side to stack 
+		int p = partition(a, l, r);
 		if (p - 1 > l) {
 			stack[++top] = l;
 			stack[++top] = p - 1;
 		}
-
-		// If there are elements on right side of pivot, 
-		// then push right side to stack 
-		if (p + 1 < h) {
+		if (p + 1 < r) {
 			stack[++top] = p + 1;
-			stack[++top] = h;
+			stack[++top] = r;
 		}
 	}
 }
 
+void heapify(int* a, int n, int i)
+{
+	int largest = i;
+	int l = 2 * i + 1;
+	int r = 2 * i + 2;
+	if (l < n && a[l] > a[largest])
+		largest = l;
+	if (r < n && a[r] > a[largest])
+		largest = r;
+	if (largest != i) {
+		swap(a[i], a[largest]);
+		heapify(a, n, largest);
+	}
+}
+
+void heapSort(int* a, int n)
+{
+	for (int i = n / 2 - 1; i >= 0; i--)
+		heapify(a, n, i);
+	for (int i = n - 1; i > 0; i--) {
+		swap(a[0], a[i]);
+		heapify(a, i, 0);
+	}
+}
+
+int recursiveBinarySearch(int* a, int left, int right, int key) {
+	int m = 0;
+	if (left <= right) {
+		m = left + (right - left) / 2;
+		if (a[m] == key)
+			return m + 1;
+		if (a[m] < key)
+			return recursiveBinarySearch(a, m + 1, right, key);
+		if (a[m] > key)
+			return recursiveBinarySearch(a, left, m - 1, key);
+	}
+	else
+		return(key > a[left]) ? left + 1 : left;
+}
+
+void binInsertion(int* a, int n)
+{
+	int temp = 0, j = 0, sent = 0;
+	for (int i = 1; i < n; i++)
+	{
+		j = i - 1;
+		temp = a[i];
+		sent = recursiveBinarySearch(a, 0, j, temp);
+		while (j >= sent)
+		{
+			a[j + 1] = a[j];
+			j--;
+		}
+		a[j + 1] = temp;
+	}
+}

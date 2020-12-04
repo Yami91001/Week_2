@@ -7,6 +7,7 @@ void main() {
 	if (f1 == NULL)
 		return;
 	fprintf(f1, "%s \n", "Sortings: 0= Selection Sort, 1= Insertion Sort, 2= Bubble Sort, 3= Merge Sort, 4= Quick Sort");
+	fprintf(f1, "%s \n", "Sortings: 5= Heap Sort, 6= Binary Insertion Sort");
 	fprintf(f1, "%s \t %s \t %s \t %s \n", "Sortings", "Data Order", "Data Size", "Duration");
 	int* a, n;
 	int dataSize[5] = { 3000,10000,30000,100000,300000 };
@@ -14,7 +15,7 @@ void main() {
 	int duration = 0;
 	n = dataSize[4];
 	a = new int[n];
-	for (int i = 4; i < 5; i++)//Sortings A
+	for (int i = 0; i < 7; i++)//Sortings A
 	{
 		for (int j = 0; j < 4; j++)//Data Oder
 		{
@@ -41,6 +42,12 @@ void main() {
 				case 4:
 					quickSortIterative(a, 0, n - 1);
 					break;
+				case 5:
+					heapSort(a, n);
+					break;
+				case 6:
+					binInsertion(a, n);
+					break;
 				}
 				auto end = std::chrono::high_resolution_clock::now();
 				duration = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -52,7 +59,9 @@ void main() {
 			}
 		}
 	}
+	
 }
+
 
 
 
